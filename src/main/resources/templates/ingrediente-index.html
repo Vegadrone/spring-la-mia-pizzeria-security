@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingrediente</title>
+</head>
+<body>
+    <h1>Ingrediente</h1>
+    <ul>
+        <li 
+        th:each="ingrediente : ${ingredienti}" 
+        th:object="${ingrediente}">
+        
+        <h2>cazzi nel culo</h2>
+            <span>Nome: </span><span>[[*{nome}]]</span>
+        </li>
+    </ul>
+
+</body>
+</html>
