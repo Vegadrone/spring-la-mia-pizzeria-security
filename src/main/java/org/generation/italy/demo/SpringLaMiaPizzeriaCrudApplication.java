@@ -2,14 +2,20 @@ package org.generation.italy.demo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.generation.italy.demo.pojo.Ingrediente;
 import org.generation.italy.demo.pojo.Pizza;
 import org.generation.italy.demo.pojo.Promozione;
+import org.generation.italy.demo.pojo.Role;
+import org.generation.italy.demo.pojo.User;
 import org.generation.italy.demo.service.IngredienteService;
 import org.generation.italy.demo.service.PizzaService;
 import org.generation.italy.demo.service.PromozioneService;
+import org.generation.italy.demo.service.RoleService;
+import org.generation.italy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,15 +32,43 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	
 	@Autowired
 	IngredienteService ingServ;
+	
+	@Autowired
+	UserService userServ;
+	
+	@Autowired
+	RoleService roleServ;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
 	}
 	
-	
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Role userRole = new Role("USER");
+		Role adminRole = new Role("ADMIN");
+		
+		roleServ.save(userRole);
+		roleServ.save(adminRole);
+		
+		User user1 = new User("user", "{noop}userpsw", userRole);
+		User adminUser = new User("admin", "{noop}adminpsw", adminRole);
+		
+		userServ.save(user1);
+		userServ.save(adminUser);
+		
+		Set<Role> userAdminRoles = new HashSet<>();
+		userAdminRoles.add(adminRole);
+		userAdminRoles.add(userRole);
+		
+		User userAdminUser = new User("useradmin", "{noop}useradminpsw", userAdminRoles);
+		
+		userServ.save(user1);
+		userServ.save(adminUser);
+		userServ.save(userAdminUser);
 		
 		Promozione pr1 = new Promozione(LocalDate.parse("2022-12-12"), LocalDate.parse("2023-02-02"), "PizzaPromo1");
 		Promozione pr2 = new Promozione(LocalDate.parse("2022-12-12"), LocalDate.parse("2023-03-02"), "PizzaPromo2");
