@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/pizza")
 public class PizzaController {
 	@Autowired
 	private PizzaService pizzaService;
@@ -59,7 +59,7 @@ public class PizzaController {
 		
 		pizzaService.save(pizza);
 		
-		return "redirect:/";
+		return "redirect:/pizza";
 	}
 	
 	@GetMapping("/pizza/edit/{id}")
@@ -89,7 +89,7 @@ public class PizzaController {
 		
 		pizzaService.save(pizza);
 		
-		return "redirect:/";
+		return "redirect:/pizza";
 	}
 	
 	@GetMapping("/pizza/delete/{id}")
@@ -97,7 +97,7 @@ public class PizzaController {
 		
 		pizzaService.deleteById(id);
 		
-		return "redirect:/";
+		return "redirect:/pizza";
 	}
 	
 	@GetMapping("/search")
